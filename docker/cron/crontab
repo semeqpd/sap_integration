@@ -9,10 +9,10 @@
 # Poll das filiais. Em produção o poll do Jaz será diário — a cada minuto é
 # ritmo de demonstração. Dois ciclos nunca se cruzam: o InvoicePoller pega uma
 # trava em arquivo antes de começar, então não é preciso flock aqui.
-* * * * * root cd /var/www/html && php automations/poll.php >> storage/logs/cron.log 2>&1
+* * * * * root cd /var/www/html && /usr/local/bin/php automations/poll.php >> storage/logs/cron.log 2>&1
 
 # Catálogo de clientes das filiais (no Go, rodava na subida do processo).
-0 * * * * root cd /var/www/html && php automations/sync_contacts.php >> storage/logs/cron.log 2>&1
+0 * * * * root cd /var/www/html && /usr/local/bin/php automations/sync_contacts.php >> storage/logs/cron.log 2>&1
 
 # Linha em branco obrigatória no fim do arquivo — sem ela o cron ignora a
 # última entrada.
