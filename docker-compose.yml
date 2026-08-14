@@ -19,8 +19,6 @@ services:
     ports:
       # 8083 por padrão para não colidir com o PHP_port, que usa 8081.
       - "${APP_PORT:-8083}:80"
-    volumes:
-      - .:/var/www/html
     extra_hosts:
       # permite usar host.docker.internal caso o banco esteja na própria máquina
       - "host.docker.internal:host-gateway"
@@ -36,8 +34,6 @@ services:
     container_name: mw_apache_cron
     restart: unless-stopped
     env_file: .env
-    volumes:
-      - .:/var/www/html
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:

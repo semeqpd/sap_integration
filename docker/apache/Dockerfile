@@ -16,6 +16,8 @@ COPY docker/apache/php.ini /usr/local/etc/php/conf.d/zz-app.ini
 COPY docker/apache/entrypoint.sh /usr/local/bin/entrypoint
 RUN chmod +x /usr/local/bin/entrypoint
 WORKDIR /var/www/html
+COPY . /var/www/html
+RUN composer install --no-interaction --prefer-dist --no-progress
 EXPOSE 80
 ENTRYPOINT ["entrypoint"]
 CMD ["apache2-foreground"]

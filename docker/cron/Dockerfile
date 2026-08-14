@@ -17,6 +17,8 @@ COPY docker/cron/entrypoint.sh /usr/local/bin/entrypoint
 RUN chmod 0644 /etc/cron.d/middleware && chmod +x /usr/local/bin/entrypoint
 
 WORKDIR /var/www/html
+COPY . /var/www/html
+RUN composer install --no-interaction --prefer-dist --no-progress
 
 ENTRYPOINT ["entrypoint"]
 
