@@ -1,5 +1,5 @@
 # Mesma base PHP do container do Apache, sem Apache: aqui roda só o cron.
-FROM php:8.3-cli
+FROM php:8.4-cli
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
