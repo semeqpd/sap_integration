@@ -1,0 +1,202 @@
+/* components.css — elementos reutilizáveis (dev/ESTILO.md, seções 5.2 a 5.12). */
+
+/* ---------- formulário ---------- */
+.form-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 12px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field.grow { flex: 1; }
+.field label {
+    text-transform: uppercase; font-size: 10px; letter-spacing: .7px;
+    font-weight: 600; color: var(--text3);
+}
+.field input, .field select {
+    height: 40px; padding: 7px 12px; min-width: 160px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-size: 14px; outline: none;
+    transition: border-color .18s ease;
+}
+.field input:focus, .field select:focus { border-color: var(--blue); }
+/* select em modo lista (size="N"): vira uma caixa de opções, não um dropdown */
+.field select[size] { height: auto; padding: 4px; }
+.field select[size] option { padding: 6px 8px; border-radius: 4px; }
+
+/* ---------- botões ---------- */
+.btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--blue); color: #fff; border: none; border-radius: 6px;
+    padding: 8px 16px; font-size: 13px; font-weight: 600; cursor: pointer;
+    height: 36px; transition: background .2s, opacity .2s;
+}
+.btn:hover:not(:disabled) { background: #3a7de0; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn.secondary { background: var(--bg3); border: 1px solid var(--border); color: var(--text2); }
+.btn.secondary:hover:not(:disabled) { background: var(--bg4); }
+.btn.small { height: 28px; padding: 4px 12px; font-size: 12px; }
+
+/* ---------- tabela ---------- */
+.table-wrapper { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: var(--bg3); position: sticky; top: 0; }
+th {
+    padding: 10px 12px; text-align: left; font-weight: 600; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .5px; color: var(--text3);
+    white-space: nowrap; border-bottom: 1px solid var(--border);
+}
+td {
+    padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top;
+    max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    color: var(--text2);
+}
+td.wrap { max-width: none; white-space: normal; }
+tbody tr:hover td { background: var(--bg3); }
+th.sortable { cursor: pointer; user-select: none; }
+th.sortable:hover { color: var(--blue2); }
+
+/* ---------- barra da tabela: busca + contagem + itens por página ---------- */
+.table-toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+
+.table-search {
+    display: flex; align-items: center; gap: 8px; flex: 1; min-width: 220px; max-width: 420px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 0 10px; height: 34px;
+    transition: border-color .18s ease;
+}
+.table-search:focus-within { border-color: var(--blue); }
+.table-search svg { color: var(--text3); flex-shrink: 0; }
+.table-search .search-input {
+    flex: 1; height: 100%; border: none; background: none; outline: none;
+    color: var(--text); font-size: 13px; font-family: inherit;
+}
+.table-search .search-input::placeholder { color: var(--text3); }
+/* o 'x' nativo do input[type=search] não combina com o tema */
+.table-search .search-input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+.result-count { color: var(--text3); font-size: 12px; white-space: nowrap; }
+
+.per-page {
+    display: inline-flex; align-items: center; gap: 6px; margin-left: auto;
+    text-transform: uppercase; font-size: 10px; letter-spacing: .7px;
+    font-weight: 600; color: var(--text3);
+}
+.per-page select {
+    height: 32px; padding: 4px 8px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-size: 13px; outline: none;
+}
+.per-page select:focus { border-color: var(--blue); }
+
+/* ---------- paginação (ESTILO.md, seção 5.12) ---------- */
+.table-pager { margin-top: 10px; }
+.pagination { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.page-btn {
+    background: var(--bg3); border: 1px solid var(--border); color: var(--text2);
+    border-radius: 6px; min-width: 34px; height: 34px; padding: 0 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 13px; font-family: inherit; cursor: pointer;
+    transition: background .15s, border-color .15s;
+}
+.page-btn:hover:not(:disabled):not(.active) { background: var(--bg4); }
+.page-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 700; }
+.page-btn:disabled { opacity: .4; cursor: not-allowed; }
+.page-gap { color: var(--text3); padding: 0 2px; }
+.page-info { color: var(--text3); font-size: 12px; margin-left: auto; white-space: nowrap; }
+
+/* ---------- badges ---------- */
+.badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700;
+}
+.badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+.badge-ok   { background: rgba(52,211,153,.12);  color: var(--green);  border: 1px solid rgba(52,211,153,.3); }
+.badge-ok::before   { background: var(--green); }
+.badge-warn { background: rgba(251,191,36,.12);  color: var(--yellow); border: 1px solid rgba(251,191,36,.3); }
+.badge-warn::before { background: var(--yellow); }
+.badge-err  { background: rgba(248,113,113,.12); color: var(--red);    border: 1px solid rgba(248,113,113,.3); }
+.badge-err::before  { background: var(--red); }
+.badge-info { background: rgba(74,144,244,.12);  color: var(--blue2);  border: 1px solid rgba(74,144,244,.3); }
+.badge-info::before { background: var(--blue); }
+.badge-off  { background: var(--bg4); color: var(--text3); border: 1px solid var(--border); }
+.badge-off::before  { background: var(--text3); }
+
+/* pill de vínculo (sistema : código) */
+.pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--bg4); border: 1px solid var(--border); border-radius: 999px;
+    padding: 2px 10px; font-size: 11px; margin: 1px 3px 1px 0; color: var(--text2);
+}
+.pill b { color: var(--blue2); font-weight: 600; }
+.pill.pend { border-color: rgba(251,191,36,.4); color: var(--yellow); }
+.pill.err  { border-color: rgba(248,113,113,.4); color: var(--red); }
+
+/* ---------- steps (fluxo no banco) ---------- */
+.steps-box { display: flex; flex-direction: column; gap: 6px; max-height: 320px; overflow-y: auto; }
+.step-row {
+    display: flex; align-items: flex-start; gap: 8px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 10px; font-size: 12px; line-height: 1.4;
+}
+.step-num { color: var(--text3); font-weight: 700; min-width: 18px; }
+.step-tag {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    padding: 1px 8px; border-radius: 999px; white-space: nowrap;
+}
+.op-select { background: rgba(74,144,244,.15); color: var(--blue2); }
+.op-insert { background: rgba(52,211,153,.15); color: var(--green); }
+.op-update { background: rgba(251,191,36,.15); color: var(--yellow); }
+.op-api    { background: rgba(168,85,247,.15); color: var(--purple); }
+.step-desc { color: var(--text2); }
+.step-desc b { color: var(--text); }
+
+/* ---------- contagem de tabelas (tela Banco) ---------- */
+.count-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.count-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 10px 16px; cursor: pointer; min-width: 130px; text-align: left;
+    transition: background .15s, border-color .15s;
+}
+.count-card:hover { background: var(--bg4); }
+.count-card.active { border-color: var(--blue); }
+.count-card .n { font-size: 22px; font-weight: 700; color: var(--text); }
+.count-card .t { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--text3); }
+
+/* ---------- estado vazio / erro ---------- */
+.state-box {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; padding: 40px 20px; color: var(--text3); text-align: center; font-size: 13px;
+}
+.state-box.error { color: var(--red); }
+
+/* ---------- modal ---------- */
+.modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6);
+    align-items: center; justify-content: center; z-index: 100;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius);
+    max-width: 560px; width: 90%; max-height: 80vh; display: flex; flex-direction: column;
+}
+.modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px; border-bottom: 1px solid var(--border); color: var(--text);
+}
+.modal-body { padding: 16px 18px; overflow: auto; display: flex; flex-direction: column; gap: 14px; }
+
+/* ---------- toast ---------- */
+#toast {
+    position: fixed; bottom: 24px; right: 24px; z-index: 200;
+    background: var(--bg3); border: 1px solid var(--border); color: var(--text);
+    padding: 12px 18px; border-radius: var(--radius); font-size: 13px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.5);
+    transform: translateY(80px); opacity: 0; transition: transform .3s, opacity .3s;
+    max-width: 420px;
+}
+#toast.show { transform: translateY(0); opacity: 1; }
+#toast.success { border-left: 3px solid var(--green); }
+#toast.error { border-left: 3px solid var(--red); }
+
+/* ---------- spinner (seção 5.11) ---------- */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+    width: 40px; height: 40px; border: 3px solid var(--border);
+    border-top-color: var(--blue); border-radius: 50%; animation: spin .7s linear infinite;
+}

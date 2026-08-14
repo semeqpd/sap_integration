@@ -1,0 +1,20 @@
+# Front controller.
+#
+# A configuração autoritativa está no vhost (docker/apache/vhost.conf); este
+# arquivo é o mesmo em .htaccess, para o caso de rodar num Apache tradicional
+# fora do Docker, onde só se mexe no diretório da aplicação.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Não reescreve arquivo nem diretório que existe de verdade (css/, js/).
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Todo o resto vai para o front controller.
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Sem listagem de diretório.
+Options -Indexes

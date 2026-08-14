@@ -1,0 +1,35 @@
+/* base.css — variáveis, reset e tipografia (dev/ESTILO.md, seções 2 e 3).
+   Nenhum hexadecimal solto fora deste arquivo: componente sempre usa var(). */
+
+:root {
+    --bg: #192236;      /* fundo geral da página */
+    --bg2: #1e2a42;     /* superfícies: topbar, cards, modal */
+    --bg3: #24314d;     /* superfícies elevadas: thead, hover de linha, toast */
+    --bg4: #2e3d5e;     /* superfícies mais elevadas: tags, hover de botão secundário */
+    --border: #3d5078;  /* toda borda/divisor */
+    --text: #ffffff;    /* texto principal (títulos) */
+    --text2: #c5d0e6;   /* texto secundário (corpo, valores) */
+    --text3: #8fa0c0;   /* texto terciário (labels, legendas, placeholders) */
+    --blue: #4a90f4;    /* destaque / ação primária */
+    --blue2: #74b3ff;   /* variação clara do azul (ícones, tags, links) */
+    --green: #34d399;   /* sucesso */
+    --red: #f87171;     /* erro */
+    --yellow: #fbbf24;  /* alerta */
+    --purple: #a855f7;  /* categoria auxiliar */
+    --radius: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: var(--bg);
+    color: var(--text2);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+}
+
+code { color: var(--blue2); font-size: 12px; }
+
+.muted { color: var(--text3); font-weight: 400; font-size: 12px; }
+
+[hidden] { display: none !important; }

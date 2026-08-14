@@ -1,0 +1,24 @@
+{
+    "imports": [
+        {
+            "enabled": true,
+            "system_id": "stream",
+            "type": "customer",
+            "base": { "alias": "client", "file": "client.csv" },
+            "lookups": [
+                {
+                    "alias": "corp",
+                    "file": "corp.csv",
+                    "on": "client.customer_corporation_id = corp.id",
+                    "required": true
+                }
+            ],
+            "external_code": "stream-{corp.id}-{client.id}",
+            "name": "{corp.name} - {client.name}",
+            "on_conflict": "skip",
+            "skip_when_blank": ["client.id", "corp.id"],
+            "where": {},
+            "csv": { "delimiter": ",", "enclosure": "\"" }
+        }
+    ]
+}

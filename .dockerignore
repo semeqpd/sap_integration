@@ -1,0 +1,6 @@
+.git
+.env
+vendor
+storage/cache/*
+storage/locks/*
+storage/logs/*

@@ -1,0 +1,71 @@
+{
+    "_doc": [
+        "Como os CSVs desta pasta viram linhas de `external_records` — o catálogo",
+        "que alimenta o dropdown da tela de Vínculos.",
+        "",
+        "Cada item de `imports` gera UMA linha de external_records por linha do",
+        "arquivo `base`. Os arquivos de `lookups` são cruzados por chave.",
+        "",
+        "Nos templates, {alias.coluna} vira o valor daquela coluna:",
+        "  external_code -> a chave do vínculo (precisa ser única e estável)",
+        "  name          -> o texto que a pessoa lê no dropdown",
+        "",
+        "Rodar:  php artisan integration:import-catalog --dry-run   (só mostra)",
+        "        php artisan integration:import-catalog             (grava)",
+        "Também roda sozinho no `migrate --seed`, sem sobrescrever o que existe.",
+        "",
+        "Toda pasta em database/init/ com um config.json é processada — para",
+        "acrescentar outro sistema, crie database/init/<sistema>/config.json.",
+        "",
+        "Se um {alias.coluna} não existir no CSV, o comando falha dizendo qual",
+        "campo faltou e listando as colunas disponíveis no arquivo."
+    ],
+
+    "imports": [
+        {
+            "enabled": true,
+
+            "_sobre": "Stream: uma linha por planta (client), com o nome da corporação junto.",
+            "system_id": "stream",
+            "type": "customer",
+
+            "base": {
+                "alias": "client",
+                "file": "client.csv"
+            },
+
+            "lookups": [
+                {
+                    "alias": "corp",
+                    "file": "corp.csv",
+                    "on": "client.corporation_id = corp.id",
+                    "required": true
+                }
+            ],
+
+            "external_code": "stream-{corp.id}-{client.id}",
+            "name": "{corp.name} - {client.name}",
+
+            "_on_conflict": "skip = nunca toca em registro que já existe (padrão). update = sobrescreve o nome.",
+            "on_conflict": "skip",
+
+            "_skip_when_blank": "Linha em que qualquer um destes campos vier vazio é ignorada.",
+            "skip_when_blank": ["client.id", "corp.id"],
+
+            "_where": "Filtro opcional: campo -> valores aceitos. Vazio = leva tudo.",
+            "_where_exemplo": { "client.status": ["true"], "corp.status": ["true"] },
+            "where": {},
+
+            "_colunas_disponiveis": {
+                "client": "id, name, status, logo, latitude, longitude, created_at, updated_at, corporation_id, segment_id, zone, country, has_integration",
+                "corp": "id, name, status, logo, created_at, updated_at"
+            },
+
+            "_csv": "Ajuste se o arquivo vier com ; em vez de , (Excel pt-BR).",
+            "csv": {
+                "delimiter": ",",
+                "enclosure": "\""
+            }
+        }
+    ]
+}

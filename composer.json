@@ -1,0 +1,35 @@
+{
+    "name": "semeq/middleware-php-apache",
+    "type": "project",
+    "description": "Middleware SAP x filiais (Jaz/PH, Xero/US) — PHP vanilla + Apache, port do PHP_port (Laravel).",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.3",
+        "guzzlehttp/guzzle": "^7.9",
+        "vlucas/phpdotenv": "^5.6",
+        "nesbot/carbon": "^3.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

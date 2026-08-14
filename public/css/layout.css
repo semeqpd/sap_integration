@@ -1,0 +1,63 @@
+/* layout.css — estrutura da página: topbar, abas, grade e cards
+   (dev/ESTILO.md, seções 5.1, 5.4 e 5.5). */
+
+/* ---------- topbar ---------- */
+.topbar {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 14px;
+    background: var(--bg2); border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+}
+.brand { display: flex; align-items: center; gap: 8px; font-size: 20px; letter-spacing: .3px; }
+.brand svg { color: var(--blue2); }
+.brand .b1 { color: var(--text); font-weight: 700; }
+.brand .b2 { color: var(--blue2); font-weight: 700; }
+.vtag {
+    background: var(--bg4); color: var(--blue2);
+    font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 999px;
+    margin-left: 8px;
+}
+.sep { width: 1px; height: 24px; background: var(--border); }
+.hint { color: var(--text3); font-size: 12px; }
+.topbar #conn { margin-left: auto; }
+
+/* ---------- abas ---------- */
+.tabs-bar {
+    display: flex; border-bottom: 2px solid var(--border);
+    padding: 0 12px; background: var(--bg2);
+}
+.tab-btn {
+    background: none; border: none; border-bottom: 2px solid transparent;
+    margin-bottom: -2px; color: var(--text3); font-size: 13px; font-weight: 600;
+    padding: 10px 20px; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
+}
+.tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+/* ---------- corpo ---------- */
+main {
+    padding: 16px 20px; max-width: 1400px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 16px;
+}
+.tab-panel { display: none; flex-direction: column; gap: 16px; }
+.tab-panel.active { display: flex; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* ---------- card ---------- */
+.card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px;
+}
+.card h2 { color: var(--text); font-size: 15px; margin-bottom: 8px; }
+.card p { margin-bottom: 12px; line-height: 1.5; }
+
+/* ---------- responsivo (seção 7) ---------- */
+@media (max-width: 900px) {
+    .grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+    .topbar { flex-wrap: wrap; }
+    .topbar .sep, .topbar .hint { display: none; }
+    main { padding: 12px; }
+}

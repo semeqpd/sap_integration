@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         colors="true">
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>app</directory>
+        </include>
+    </source>
+    <!--
+        Note que não há bloco <php><env .../></php> aqui.
+
+        Dentro do container o compose injeta o .env como variável de ambiente
+        real do processo, e nesse caso o <env> do phpunit.xml não vence — os
+        testes rodariam contra o MySQL de desenvolvimento. O ambiente de teste
+        é fixado em código, em tests/bootstrap.php, onde variável nenhuma
+        alcança.
+    -->
+</phpunit>

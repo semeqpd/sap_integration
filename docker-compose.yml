@@ -1,0 +1,58 @@
+name: semeq_middleware_php_apache
+
+# O banco é externo (ver DB_* no .env) — este compose não sobe MySQL nenhum.
+# O código fica montado do host (bind mount), então editar em qualquer editor
+# reflete na hora: sem rebuild, sem passo de build de assets.
+services:
+  # ---------------------------------------------------------------------------
+  # Apache + mod_php: serve public/ e roda a aplicação
+  # ---------------------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: docker/apache/Dockerfile
+    container_name: mw_apache_app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      RUN_MIGRATIONS: "${RUN_MIGRATIONS:-false}"
+    ports:
+      # 8083 por padrão para não colidir com o PHP_port, que usa 8081.
+      - "${APP_PORT:-8083}:80"
+    volumes:
+      - .:/var/www/html
+    extra_hosts:
+      # permite usar host.docker.internal caso o banco esteja na própria máquina
+      - "host.docker.internal:host-gateway"
+
+  # ---------------------------------------------------------------------------
+  # Cron: dispara os scripts de automations/ nos horários de docker/cron/crontab
+  # (poll a cada minuto, sync de catálogo a cada hora).
+  # ---------------------------------------------------------------------------
+  cron:
+    build:
+      context: .
+      dockerfile: docker/cron/Dockerfile
+    container_name: mw_apache_cron
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - .:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - app
+
+  # ---------------------------------------------------------------------------
+  # Adminer (opcional): docker compose --profile tools up -d
+  # Já abre apontado para o banco configurado no .env.
+  # ---------------------------------------------------------------------------
+  adminer:
+    image: adminer:5
+    container_name: mw_apache_adminer
+    restart: unless-stopped
+    profiles: ["tools"]
+    ports:
+      - "${ADMINER_PORT:-8084}:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: "${DB_HOST}"
